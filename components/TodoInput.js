@@ -1,14 +1,37 @@
 import React from 'react'
-import { Text, TextInput, View, StyleSheet, TouchableOpacity} from 'react-native'
+import { Text, TextInput, View, StyleSheet, TouchableOpacity } from 'react-native'
 
-const TodoInput = () => {
+const TodoInput = ({ todo, setTodo, inputText, setInputText }) => {
+  
+  
+
+  const addNewTodo = () => {
+    if (inputText.trim()) {
+      setTodo([
+        ...todo,
+        {
+          text: inputText,
+          id: new Date().getTime()
+        }
+      ])
+
+      setInputText('')
+    } else {
+      alert('error')
+    }
+  }
+
   return (
     <View style={styles.todoInput}>
       <TextInput
         style={styles.input}
+        value={inputText}
+        onChangeText={setInputText}
+        placeholder='Enter your todo'
       />
       <TouchableOpacity
         style={styles.button}
+        onPress={addNewTodo}
       >
         <Text style={styles.text}>ADD</Text>
       </TouchableOpacity>
