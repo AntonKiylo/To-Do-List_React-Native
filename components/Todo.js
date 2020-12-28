@@ -1,14 +1,16 @@
 import React from 'react';
-import { CheckBox, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-const Todo = ({ item, todo, setTodo }) => {
+const Todo = ({ item, todo, setTodo, storeData }) => {
+  
   const removeTodo = () => {
-    setTodo(todo.filter(it => it.id !== item.id))
+    const newTodo = [todo.filter(it => it.id !== item.id)]
+    setTodo(newTodo)
+    storeData(newTodo)
   }
 
   return (
     <TouchableOpacity style={styles.todo} onLongPress={removeTodo}>
-      <CheckBox />
       <Text style={styles.text}>{item.text}</Text>
     </TouchableOpacity>
   )

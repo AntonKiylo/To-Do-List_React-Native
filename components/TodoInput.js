@@ -1,20 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Text, TextInput, View, StyleSheet, TouchableOpacity } from 'react-native'
 
-const TodoInput = ({ todo, setTodo, inputText, setInputText }) => {
-  
-  
+const TodoInput = ({ todo, setTodo, storeData }) => {
+  const [inputText, setInputText] = useState('')
 
   const addNewTodo = () => {
     if (inputText.trim()) {
-      setTodo([
-        ...todo,
-        {
-          text: inputText,
-          id: new Date().getTime()
-        }
-      ])
-
+      const newTodo = [...todo, { text: inputText, id: new Date().getTime() }]
+      setTodo(newTodo)
+      storeData(newTodo)
       setInputText('')
     } else {
       alert('error')
@@ -43,7 +37,6 @@ const styles = StyleSheet.create({
   todoInput: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    
   },
   input: {
     flex: 1,

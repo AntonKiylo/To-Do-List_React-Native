@@ -1,16 +1,18 @@
 import React from 'react'
-import { FlatList, StyleSheet } from 'react-native'
+import { FlatList, StyleSheet, View, Text } from 'react-native'
 import Todo from './Todo'
 
-const TodoContainer = ({ todo, setTodo }) => {
-  
-
+const TodoContainer = ({ todo, setTodo, storeData }) => {
   return (
-    <FlatList
-      keyExtractor={item => item.id.toString()}
-      data={todo}
-      renderItem={({ item }) => <Todo key={todo.id} item={item} todo={todo} setTodo={setTodo} />}
-    />
+    <View style={styles.container}>
+      {/* { todo !== null ? todo.map(item => <Text key={item.id}>{item.text}</Text>) : false } */}
+      { todo.map(item => <Text key={item.id}>{item.text}</Text>) }
+    </View>
+    // <FlatList
+    //   keyExtractor={item => item.id.toString()}
+    //   data={todo}
+    //   renderItem={({ item }) => <Todo key={todo.id} item={item} todo={todo} setTodo={setTodo} storeData={storeData} />}
+    // />
   )
 }
 
