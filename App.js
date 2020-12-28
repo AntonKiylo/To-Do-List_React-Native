@@ -7,41 +7,39 @@ import TodoInput from './components/TodoInput'
 
 const App = () => {
   const [todo, setTodo] = useState([])
-  const [inputText, setInputText] = useState('')
-
-  const storeData = async (value) => {
+  
+  const storeData = async (newTodo) => {
     try {
-      const jsonValue = JSON.stringify(value)
-      await AsyncStorage.setItem('@storage_Key', jsonValue)
-      console.log(jsonValue)
+      const jsonTodo = JSON.stringify(newTodo)
+      await AsyncStorage.setItem('@todo_Key', jsonTodo)
     } catch (e) {
-      
+      console.log(e)
     }
   }
+
+  const getData = async () => {
+    try {
+      const jsonTodo = await AsyncStorage.getItem('@todo_Key')
+      if (jsonTodo !== null) {
+        setTodo(JSON.parse(jsonTodo))
+      } else {
+        return
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  
   useEffect(() => {
-    storeData(todo)
-  }, [todo])
-
-
-  // const getData = async () => {
-  //   try {
-  //     const jsonValue = await AsyncStorage.getItem('@storage_Key')
-  //     return jsonValue != null ? JSON.parse(jsonValue) : null;
-  //   } catch(e) {
-  //     // error reading value
-  //   }
-  // }
-  
-
-  
-
+    getData()
+  }, [])
 
   return (
     <View style={styles.container}>
       <Navbar title='My first android app' />
       <View style={styles.content}>
-        <TodoInput todo={todo} setTodo={setTodo} inputText={inputText} setInputText={setInputText} />
-        <TodoContainer todo={todo} setTodo={setTodo} />
+        <TodoInput todo={todo} setTodo={setTodo} storeData={storeData} />
+        <TodoContainer todo={todo} setTodo={setTodo} storeData={storeData} />
       </View>
     </View>
   )
