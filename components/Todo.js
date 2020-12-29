@@ -1,16 +1,16 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-const Todo = ({ item, todo, setTodo, storeData }) => {
-  
+const Todo = ({ todos, setTodos, storeData, item }) => {
   const removeTodo = () => {
-    const newTodo = [todo.filter(it => it.id !== item.id)]
-    setTodo(newTodo)
+    const newTodo = todos.filter(todo => todo.id !== item.id)
+    console.log(newTodo)
+    setTodos(newTodo)
     storeData(newTodo)
   }
 
   return (
-    <TouchableOpacity style={styles.todo} onLongPress={removeTodo}>
+    <TouchableOpacity style={styles.todo} onLongPress={removeTodo} >
       <Text style={styles.text}>{item.text}</Text>
     </TouchableOpacity>
   )
