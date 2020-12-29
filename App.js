@@ -6,7 +6,7 @@ import TodoContainer from './components/TodoContainer'
 import TodoInput from './components/TodoInput'
 
 const App = () => {
-  const [todo, setTodo] = useState([])
+  const [todos, setTodos] = useState([])
   
   const storeData = async (newTodo) => {
     try {
@@ -21,7 +21,7 @@ const App = () => {
     try {
       const jsonTodo = await AsyncStorage.getItem('@todo_Key')
       if (jsonTodo !== null) {
-        setTodo(JSON.parse(jsonTodo))
+        setTodos(JSON.parse(jsonTodo))
       } else {
         return
       }
@@ -38,8 +38,8 @@ const App = () => {
     <View style={styles.container}>
       <Navbar title='My first android app' />
       <View style={styles.content}>
-        <TodoInput todo={todo} setTodo={setTodo} storeData={storeData} />
-        <TodoContainer todo={todo} setTodo={setTodo} storeData={storeData} />
+        <TodoInput todos={todos} setTodos={setTodos} storeData={storeData} />
+        <TodoContainer todos={todos} setTodos={setTodos} storeData={storeData} />
       </View>
     </View>
   )

@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { Text, TextInput, View, StyleSheet, TouchableOpacity } from 'react-native'
 
-const TodoInput = ({ todo, setTodo, storeData }) => {
+const TodoInput = ({ todos, setTodos, storeData }) => {
   const [inputText, setInputText] = useState('')
 
   const addNewTodo = () => {
     if (inputText.trim()) {
-      const newTodo = [...todo, { text: inputText, id: new Date().getTime() }]
-      setTodo(newTodo)
+      const newTodo = [...todos, { text: inputText, id: new Date().getTime() }]
+      setTodos(newTodo)
       storeData(newTodo)
       setInputText('')
     } else {
